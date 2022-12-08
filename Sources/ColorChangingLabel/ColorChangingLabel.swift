@@ -8,7 +8,8 @@
 import UIKit
 
 public final class ColorChangingLabel: UIView {
-    private let label = ColorChangingLabelContentLabel()
+    private let label = ColorChangingLabelContentLabel(textColor: .black)
+    private let sizeProposerLabel = ColorChangingLabelContentLabel(textColor: .clear)
 
     private class ColorChangingLabelContentLabel: UILabel {
         private var _textColor: UIColor = .black
@@ -31,10 +32,9 @@ public final class ColorChangingLabel: UIView {
             }
         }
 
-        init() {
+        init(textColor: UIColor) {
             super.init(frame: .zero)
-            translatesAutoresizingMaskIntoConstraints = false
-            textColor = _textColor
+            self.textColor = textColor
             textColorShouldNotChange = true
         }
 
@@ -49,15 +49,24 @@ public final class ColorChangingLabel: UIView {
         }
     }
 
-    public init() {
+    init() {
         super.init(frame: .zero)
+
         translatesAutoresizingMaskIntoConstraints = false
         set(color: .black)
+
         addSubview(label)
         mask = label
         label.invalidatedIntrinsicContentSize = { [weak self] in
             self?.invalidateIntrinsicContentSize()
         }
+
+        addSubview(sizeProposerLabel)
+        sizeProposerLabel.translatesAutoresizingMaskIntoConstraints = false
+        sizeProposerLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        sizeProposerLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        sizeProposerLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        sizeProposerLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
     }
 
     @available(*, unavailable)
@@ -74,7 +83,7 @@ extension ColorChangingLabel {
     }
 
     public override var intrinsicContentSize: CGSize {
-        label.intrinsicContentSize
+        sizeProposerLabel.intrinsicContentSize
     }
 }
 
@@ -91,5 +100,6 @@ extension ColorChangingLabel {
 
     public func configureLabel(_ label: (UILabel) -> Void) {
         label(self.label)
+        label(sizeProposerLabel)
     }
 }
