@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "colorchanginglabel",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/stateman92/ColorChangingLabel",
+      "state" : {
+        "revision" : "47664939b794a19e1356c209ee85ea694771cc42",
+        "version" : "0.0.3"
+      }
+    }
+  ],
+  "version" : 2
+}
