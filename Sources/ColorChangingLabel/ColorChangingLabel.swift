@@ -49,7 +49,7 @@ public final class ColorChangingLabel: UIView {
         }
     }
 
-    init() {
+    public init() {
         super.init(frame: .zero)
 
         translatesAutoresizingMaskIntoConstraints = false
