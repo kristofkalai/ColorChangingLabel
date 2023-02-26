@@ -36,7 +36,7 @@ extension ViewController {
     @objc private func didTapLabel() {
         label.change(toColor: currentColor == .blue ? .red : .blue, duration: 2) { [weak self] in
             guard $0 else { return }
-            self?.label.configureLabel { _ in
+            self?.label.configureLabel {
                 $0.text = "Tap me to change color!"
             }
         }
