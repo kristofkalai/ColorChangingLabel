@@ -92,10 +92,14 @@ extension ColorChangingLabel {
         layer.backgroundColor = color.cgColor
     }
 
-    public func change(toColor: UIColor, duration: TimeInterval, completion: @escaping () -> Void = { }) {
-        layer.animateBackground(to: toColor.cgColor, with: duration) { _ in
-            completion()
+    public func change(toColor: UIColor, duration: TimeInterval, completion: @escaping (Bool) -> Void) {
+        layer.animateBackground(to: toColor.cgColor, with: duration) {
+            completion($0)
         }
+    }
+
+    public func change(toColor: UIColor, duration: TimeInterval, completion: @escaping () -> Void = { }) {
+        change(toColor: toColor, duration: duration) { _ in completion() }
     }
 
     public func configureLabel(_ label: (UILabel) -> Void) {

@@ -34,7 +34,12 @@ extension ViewController {
     }
 
     @objc private func didTapLabel() {
-        label.change(toColor: currentColor == .blue ? .red : .blue, duration: 2)
+        label.change(toColor: currentColor == .blue ? .red : .blue, duration: 2) { [weak self] in
+            guard $0 else { return }
+            self?.label.configureLabel { _ in
+                $0.text = "Tap me to change color!"
+            }
+        }
         label.configureLabel { label in
             label.text = "You can tap me, even though it's in progress..."
         }
