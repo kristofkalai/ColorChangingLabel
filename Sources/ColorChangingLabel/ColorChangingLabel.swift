@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import LayerAnimation
 
 public final class ColorChangingLabel: UIView {
     private let label = ColorChangingLabelContentLabel(textColor: .black)
@@ -92,14 +93,27 @@ extension ColorChangingLabel {
         layer.backgroundColor = color.cgColor
     }
 
-    public func change(toColor: UIColor, duration: TimeInterval, completion: @escaping (Bool) -> Void) {
-        layer.animateBackground(to: toColor.cgColor, with: duration) {
-            completion($0)
-        }
+    public func change(toColor: UIColor,
+                       duration: TimeInterval,
+                       timingFunction: CAMediaTimingFunction = .init(name: .linear),
+                       repeatCount: Float = .zero,
+                       autoreverses: Bool = false,
+                       completion: @escaping (Bool) -> Void) {
+        layer.animate(to: CALayer.LayerAnimatable.backgroundColor(toColor),
+                      with: duration,
+                      timingFunction: timingFunction,
+                      repeatCount: repeatCount,
+                      autoreverses: autoreverses,
+                      completion: completion)
     }
 
-    public func change(toColor: UIColor, duration: TimeInterval, completion: @escaping () -> Void = { }) {
-        change(toColor: toColor, duration: duration) { _ in completion() }
+    public func change(toColor: UIColor,
+                       duration: TimeInterval,
+                       timingFunction: CAMediaTimingFunction = .init(name: .linear),
+                       repeatCount: Float = .zero,
+                       autoreverses: Bool = false,
+                       completion: @escaping () -> Void = { }) {
+        change(toColor: toColor, duration: duration, timingFunction: timingFunction, repeatCount: repeatCount, autoreverses: autoreverses) { _ in completion() }
     }
 
     public func configureLabel(_ label: (UILabel) -> Void) {

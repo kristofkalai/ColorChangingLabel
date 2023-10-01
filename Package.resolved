@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "layeranimation",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/stateman92/LayerAnimation.git",
+      "state" : {
+        "revision" : "4942f74dce320d851aaa0f6d6ad4c8aa517ca30f",
+        "version" : "0.0.1"
+      }
+    }
+  ],
+  "version" : 2
+}
